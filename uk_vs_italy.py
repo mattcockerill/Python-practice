@@ -32,36 +32,14 @@ df.set_index('dateRep')
 
 # plot some graphs
 
-# 10 largest countries by cases
-# df.groupby('countriesAndTerritories')['cases'].sum().nlargest(10, 'first').plot(kind='bar')
-# plt.show()
-#
-# 10 largest countries by deaths
-# df.groupby('countriesAndTerritories')['deaths'].sum().nlargest(10, 'first').plot(kind='bar')
-# plt.show()
-# df.groupby('countriesAndTerritories').plot()
-
 uk      = df[df['countriesAndTerritories'] == 'United_Kingdom'].sort_values(by = 'dateRep')
 italy   = df[df['countriesAndTerritories'] == 'Italy'].sort_values(by = 'dateRep')
 
-# cases
-# uk.plot(x='dateRep', y='cases')
-# italy.plot(x='dateRep', y='cases')
-# plt.show()
-
-# deaths
-# uk.plot(x='dateRep', y='deaths')
-# italy.plot(x='dateRep', y='deaths')
-# plt.show()
-
 # cumulative deaths and cases
-# plt.plot(uk['dateRep'],uk['cases'].cumsum(), 'g-', label = 'UK - Cases')
-# plt.plot(italy['dateRep'],italy['cases'].cumsum(), 'r-', label = 'Italy - Cases')
-# plt.plot(uk['dateRep'],uk['deaths'].cumsum(), 'g--', label = 'UK - Deaths')
-# plt.plot(italy['dateRep'],italy['deaths'].cumsum(), 'r--', label = 'Italy - Deaths')
-# plt.legend()
-# plt.show()
-
-# cases divided by deaths
-plt.plot(uk['dateRep'],uk['deaths']/uk['cases'])
+plt.plot(uk['dateRep'],uk['cases'].cumsum(), 'g-', label = 'UK - Cases')
+plt.plot(italy['dateRep'],italy['cases'].cumsum(), 'r-', label = 'Italy - Cases')
+plt.plot(uk['dateRep'],uk['deaths'].cumsum(), 'g--', label = 'UK - Deaths')
+plt.plot(italy['dateRep'],italy['deaths'].cumsum(), 'r--', label = 'Italy - Deaths')
+plt.legend()
 plt.show()
+
