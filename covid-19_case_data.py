@@ -16,8 +16,8 @@ data    = uh.read().decode()
 
 # create dataframe from url data
 js      = json.loads(data)
-records = list(js['records'])
-df      = pd.DataFrame.from_dict(records)
+lst     = list(js['records'])
+df      = pd.DataFrame.from_dict(lst)
 
 # ensure we have the correct data types and set index
 df['dateRep']       =   pd.to_datetime(df['dateRep'], dayfirst = True)
@@ -32,23 +32,17 @@ df.set_index('dateRep')
 
 # plot some graphs
 
+# 10 largest countries by cases
 # df.groupby('countriesAndTerritories')['cases'].sum().nlargest(10, 'first').plot(kind='bar')
 # plt.show()
 #
+# 10 largest countries by deaths
 # df.groupby('countriesAndTerritories')['deaths'].sum().nlargest(10, 'first').plot(kind='bar')
 # plt.show()
 # df.groupby('countriesAndTerritories').plot()
 
-uk      = df[df['countriesAndTerritories'] == 'United_Kingdom']
-italy   = df[df['countriesAndTerritories'] == 'Italy']
-
-
-plt.plot(uk['dateRep'],uk['cases'], 'g-', label = 'UK - Cases')
-plt.plot(italy['dateRep'],italy['cases'], 'r-', label = 'Italy - Cases')
-plt.plot(uk['dateRep'],uk['deaths'], 'g--', label = 'UK - Deaths')
-plt.plot(italy['dateRep'],italy['deaths'], 'r--', label = 'Italy - Deaths')
-plt.legend()
-plt.show()
+uk      = df[df['countriesAndTerritories'] == 'United_Kingdom'].sort_values(by = 'dateRep')
+italy   = df[df['countriesAndTerritories'] == 'Italy'].sort_values(by = 'dateRep')
 
 # cases
 # uk.plot(x='dateRep', y='cases')
@@ -59,3 +53,15 @@ plt.show()
 # uk.plot(x='dateRep', y='deaths')
 # italy.plot(x='dateRep', y='deaths')
 # plt.show()
+
+# cumulative deaths and cases
+# plt.plot(uk['dateRep'],uk['cases'].cumsum(), 'g-', label = 'UK - Cases')
+# plt.plot(italy['dateRep'],italy['cases'].cumsum(), 'r-', label = 'Italy - Cases')
+# plt.plot(uk['dateRep'],uk['deaths'].cumsum(), 'g--', label = 'UK - Deaths')
+# plt.plot(italy['dateRep'],italy['deaths'].cumsum(), 'r--', label = 'Italy - Deaths')
+# plt.legend()
+# plt.show()
+
+# cases divided by deaths
+plt.plot(uk['dateRep'],uk['deaths']/uk['cases'])
+plt.show()
