@@ -4,6 +4,8 @@ import ssl
 import time as tm
 import pandas as pd
 import matplotlib, matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
 import seaborn as sns
 
 # covid data url
@@ -36,10 +38,21 @@ uk      = df[df['countriesAndTerritories'] == 'United_Kingdom'].sort_values(by =
 italy   = df[df['countriesAndTerritories'] == 'Italy'].sort_values(by = 'dateRep')
 
 # cumulative deaths and cases
+fig, ax = plt.subplots()
+
 plt.plot(uk['dateRep'],uk['cases'].cumsum(), 'g-', label = 'UK - Cases')
 plt.plot(italy['dateRep'],italy['cases'].cumsum(), 'r-', label = 'Italy - Cases')
 plt.plot(uk['dateRep'],uk['deaths'].cumsum(), 'g--', label = 'UK - Deaths')
 plt.plot(italy['dateRep'],italy['deaths'].cumsum(), 'r--', label = 'Italy - Deaths')
+plt.xlabel('Date')
+plt.ylabel('# of Cases/Deaths')
 plt.legend()
+
+# format tick labels
+months = mdates.MonthLocator()  # every month
+months_fmt = mdates.DateFormatter('%m/%Y')
+ax.xaxis.set_major_locator(months)
+ax.xaxis.set_major_formatter(months_fmt)
+
 plt.show()
 
