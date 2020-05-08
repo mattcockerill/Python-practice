@@ -53,7 +53,6 @@ plot.set_ylabel('# of Cases')
 
 # Assigning Colour
 for country in list(colors.keys()):
-    print(covid.index[-1], covid[country].max(), colors[country])
     plot.text(x = covid.index[-1], y = covid[country].max(), color = colors[country], s = country, fontsize = 8, weight = 'bold')
 
 # Adding Labels
