@@ -7,6 +7,7 @@ import matplotlib, matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 import seaborn as sns
+sns.set(style="darkgrid")
 
 # covid data url
 url = 'https://opendata.ecdc.europa.eu/covid19/casedistribution/json'
